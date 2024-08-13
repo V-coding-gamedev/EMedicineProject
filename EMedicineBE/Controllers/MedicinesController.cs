@@ -7,6 +7,26 @@ namespace EMedicineBE.Controllers
     {
         EMedicineContext context = new EMedicineContext();
 
+
+        [HttpGet("GetAllMedicines")]
+        public IActionResult GetAllMedicines()
+        {
+            var medicines = context.Medicines.Select(m => new
+            {
+                m.Id,
+                m.Name,
+                m.Manufacturer,
+                m.UnitPrice,
+                m.Discount,
+                m.Quantity,
+                expDate = ((DateTime)m.ExpDate).ToShortDateString(),
+                m.ImageUrl,
+                m.Status
+            }).ToList();
+
+            return Ok(medicines); 
+        }
+
         [HttpPost]
         public IActionResult AddMedicine([FromBody] Medicine medicine)
         {
