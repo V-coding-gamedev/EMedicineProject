@@ -57,12 +57,12 @@ const Login = () => {
     useEffect(() => {
         if (loginStatus) {
             console.log('Login successful, data: ', loginStatus);
+            sessionStorage.setItem('email', email);
+            sessionStorage.setItem('password', password);
             navigate('/homepage');
         } else if (error) {
             console.log('Error:', error.message);
-        }
-        // Mảng [loginStatus, error, navigate] trong useEffect xác định khi nào useEffect cần chạy lại, dựa trên sự thay đổi của các giá trị trong mảng này.
-    }, [loginStatus, error, navigate]); 
+        }}, [loginStatus, error, navigate]); 
 
     if (error) {
         errorMessage = <div className="alert alert-danger" role="alert">{error}</div>;
@@ -89,15 +89,6 @@ const Login = () => {
                                     placeholder="Enter password" onChange={handlePasswordChange} />
                                 <label className="form-label" htmlFor="form3Example4">Password</label>
                             </div>
-                            <div className="d-flex justify-content-between align-items-center">
-                                <div className="form-check mb-0">
-                                    <input className="form-check-input me-2" type="checkbox" value="" id="form2Example3" />
-                                    <label className="form-check-label" htmlFor="form2Example3">
-                                        Remember me
-                                    </label>
-                                </div>
-                                <a href="#!" className="text-body">Forgot password?</a>
-                            </div>
                             <div className="text-center text-lg-start mt-4 pt-2">
                                 <button type="button" className="btn btn-primary btn-lg"
                                     style={btnStyle} onClick={handleLogin}>Login</button>
@@ -105,8 +96,6 @@ const Login = () => {
                                     className="link-danger">Register</Link></p>
                             </div>
 
-                            {/*kiểm tra xem error có giá trị truthy hay không (không phải là null, false, 0, undefined)*/}
-                            {/*{error && <div className="alert alert-danger" role="alert">{error}</div>}*/}
                             {errorMessage}
                             
                         </form>

@@ -1,6 +1,6 @@
 ﻿import React, {useState, useEffect } from 'react';
-import axios from 'axios'; 
-
+import axios from 'axios';
+import { Link, useNavigate } from 'react-router-dom'; 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const HomePage = () => {
@@ -63,30 +63,41 @@ const HomePage = () => {
         );
     };
 
-    let images = [
-        'https://5.imimg.com/data5/SELLER/Default/2023/7/330506870/UM/GZ/QO/135658020/aspirin-dispersible-tablets-500x500.jpg',
-        'https://cdn.nhathuoclongchau.com.vn/unsafe/800x0/filters:quality(95)/https://cms-prod.s3-sgn09.fptcloud.com/ibuprofen_la_gi_huong_dieu_tri_khi_bi_ngo_doc_ibuprofen1_51003b0b0f.png',
-        'https://vinmec-prod.s3.amazonaws.com/images/20230218_051500_983773_Paracetamol_500mg.max-800x800.jpg',
-        'https://product.hstatic.net/200000217829/product/cetirizine_stada_10_mg_-_thuoc_chong_di_ung_3054e48dbc6744aaa3af2b5ce173c9d7_master.jpg',
-        'https://www.domesco.com/pictures/catalog/products/san-pham-2024/Amoxicillin-500-mg-VD-22625-15-10-vi-x-10-vien-nang-cung-00224-.png',
-        'https://i5.walmartimages.com/seo/Herbion-Naturals-Sugar-Free-Cough-Syrup-with-Stevia-5-FL-Oz_d7e5e89e-75f4-4786-bb71-a88a3232bc8b.6e224ef8a5056c9972a70a7cad0f88dc.jpeg',
-        'https://down-sg.img.susercontent.com/file/my-11134207-7r990-ltf0napncuoe78',
-        'https://images-na.ssl-images-amazon.com/images/I/61RJwFBjEUL.jpg',
-        'https://media.tractorsupply.com/is/image/TractorSupplyCompany/1619326?wid=456&hei=456&fmt=webp&qlt=100,0&resMode=sharp2&op_usm=0.9,1.0,8,0',
-        'https://purenutrition.in/cdn/shop/products/DiabeticCareamazonproductimages_1.jpg?v=1708880692&width=1445'
-    ];
+    const navigate = useNavigate(); 
+
+    const navigateToHomePage = () => {
+        navigate('/homepage');
+    }
+
+    const navigateToProfilePage = () => {
+        navigate('/profile');
+    }
+
+    const navigateToOrdersPage = () => {
+        navigate('/orders');
+    }
+
+    const navigateToCartPage = () => {
+        navigate('/cart');
+    }
+
+    const logout = () => {
+        sessionStorage.removeItem('email');
+        sessionStorage.removeItem('password');
+        navigate('/')
+    }
     
     return (
         <div>
             <header style={headerStyle}>
                 <div style={{ display: 'flex' }}>
-                    <h2 style={{ marginLeft: '20px', fontSize: '20px' }}>E-Medicine Web</h2>
-                    <h2 style={{ marginLeft: '40px', fontSize: '20px' }}>My Profile</h2>
-                    <h2 style={{ marginLeft: '40px', fontSize: '20px' }}>My Orders</h2>
-                    <h2 style={{ marginLeft: '40px', fontSize: '20px' }}>Cart</h2>
+                    <h2 style={{ marginLeft: '20px', fontSize: '20px' }} onClick={navigateToHomePage}>E-Medicine Web</h2>
+                    <h2 style={{ marginLeft: '40px', fontSize: '20px' }} onClick={navigateToProfilePage}>My Profile</h2>
+                    <h2 style={{ marginLeft: '40px', fontSize: '20px' }} onClick={navigateToOrdersPage}>My Orders</h2>
+                    <h2 style={{ marginLeft: '40px', fontSize: '20px' }} onClick={navigateToCartPage}>Cart</h2>
                 </div>
 
-                <button style={logoutBtnStyle }>
+                <button style={logoutBtnStyle} onClick={logout}>
                     Logout
                 </button>
             </header>
