@@ -52,7 +52,7 @@ const HomePage = () => {
         getMedicines(); 
     }, [])
 
-    console.log(medicineList); // check
+    // console.log(medicineList); // check
 
     // xem lại
     const handleQuantityChange = (id, newQuantity) => {
@@ -86,6 +86,15 @@ const HomePage = () => {
         sessionStorage.removeItem('password');
         navigate('/')
     }
+
+    const [cartItems, setCartItems] = useState([]); 
+    
+    const addToCart = (medicine) => {
+        setCartItems((prevCartItems) => [...prevCartItems, medicine]);
+    }; 
+
+    sessionStorage.setItem('cartItems', JSON.stringify(cartItems)); 
+    console.log(JSON.stringify(cartItems, null, 2));
     
     return (
         <div>
@@ -116,17 +125,12 @@ const HomePage = () => {
                                     type="number" id="quantity"
                                     class="form-control"
                                     value={medicine.quantity}
+                                    onChange={(e) => handleQuantityChange(medicine.id, e.target.value)}
                                 />
-
-                                {/*setMedicines((prevMedicines) =>*/}
-                                {/*    prevMedicines.map((medicine) =>*/}
-                                {/*                        medicine.id === id ? {...medicine, quantity: newQuantity } : medicine*/}
-                                {/*    )*/}
-                                {/*);*/}
                             </div>
                             
                             <h4>Status: {medicine.status}</h4>
-                            <button>Add To Cart</button>
+                            <button onClick={() => addToCart(medicine)}>Add To Cart</button>
                         </div>
                     )
                 })}

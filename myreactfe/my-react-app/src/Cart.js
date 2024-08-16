@@ -45,6 +45,25 @@ const Carts = () => {
         navigate('/')
     }
 
+    const [cartItems, setCartItems] = useState([]); 
+
+    const storedMedicineArray = JSON.parse(sessionStorage.getItem('cartItems'));
+
+    // console.log(storedMedicineArray);
+    /*setCartItems(storedMedicineArray); */
+    /*console.log(cartItems);*/
+
+    useEffect(() => {
+        const storedMedicineArray = JSON.parse(sessionStorage.getItem('cartItems'));
+
+        if (storedMedicineArray && Array.isArray(storedMedicineArray)) {
+            setCartItems(storedMedicineArray);
+        }
+    }, []);
+
+    console.log(cartItems)
+
+
     return (
         <div>
             <header style={headerStyle}>
@@ -64,6 +83,19 @@ const Carts = () => {
             <div>
                 Carts
             </div>
+
+            <ul>
+                {cartItems.map((item, index) => (
+                    <li key={index}>
+                        <p>Name: {item.name}</p>
+                        <p>Manufacturer: {item.manufacturer}</p>
+                        <p>Unit Price: {item.unitPrice}</p>
+                        <p>Quantity: {item.quantity}</p>
+                        <p>Discount: {item.discount}</p>
+                        <p>Expiration Date: {item.expDate}</p>
+                    </li>
+                ))}
+            </ul>
 
         </div>
     )
